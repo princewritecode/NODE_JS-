@@ -5,11 +5,19 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+app.get("/", (req, res) =>
+{
+  res.render('index.ejs');
+});
 
-app.get("/", (req, res) => {});
+app.post("/submit", (req, res) =>
+{
+  const numLetters = req.body["fName"].length + req.body["lName"].length;
+  res.render("solution.ejs", { numberOfLetters: numLetters });
+});
 
-app.post("/submit", (req, res) => {});
-
-app.listen(port, () => {
+app.listen(port, () =>
+{
   console.log(`Server running on port ${port}`);
 });
